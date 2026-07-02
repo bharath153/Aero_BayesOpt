@@ -1,0 +1,29 @@
+HOOK:
+🏎️ Formula 1 teams test aerodynamic configurations in CFD hundreds of times per week. This is how ML makes that process 10× more efficient.
+
+POST:
+In aerodynamic optimization, every CFD evaluation is expensive — hours of compute time. A traditional DoE (Design of Experiments) approach scatters evaluations randomly across the design space. Bayesian Optimization (BO) is smarter: it decides where to evaluate next based on what it already knows.
+
+In this project, I built a complete Bayesian Optimization pipeline:
+📐 5 aerodynamic design variables (windshield angle, rear angle, roof camber, diffuser angle, hood angle)
+🔵 20-point Latin Hypercube Sampling for initial DoE
+🧠 Gaussian Process surrogate fit after each evaluation
+📈 Expected Improvement acquisition function guides next evaluation
+🎯 Optimal design found in 60 total evaluations
+
+Result: Cd reduced from 0.300 (baseline) to 0.153 (optimal) — a 49% drag reduction.
+
+The response surface shows a clean optimum at minimum windshield angle + maximum roof camber + maximum diffuser angle — consistent with aerodynamic first principles (attached flow on rear deck).
+
+This methodology is used at: Ferrari F1, Mercedes-AMG HPP, Boeing, Airbus, and NASA.
+
+🔗 Full optimization pipeline on GitHub (link in comments)
+
+HASHTAGS:
+#BayesianOptimization #Aerodynamics #DesignOptimization #MachineLearning #CFD #SurrogateModeling #AutomotiveEngineering #ExpectedImprovement #OpenToWork
+
+---
+IMAGE SUGGESTION:
+Use `plots/fig1_*.png` (performance chart) as the main LinkedIn image.
+Optionally combine fig1 + fig4 into a 2-panel image using any image editor.
+Keep image width > 1200px for best display in feed.

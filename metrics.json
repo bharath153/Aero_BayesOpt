@@ -1,0 +1,10 @@
+{
+  "best_Cd": 0.1534,
+  "optimal_design": {
+    "hood_angle": 8.613,
+    "windshield_a": 25.0,
+    "rear_angle": 5.0,
+    "roof_camber": 0.12,
+    "diffuser_angle": 15.0
+  }
+}
