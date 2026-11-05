@@ -1,23 +1,37 @@
-# Technical Notes — Vehicle Aerodynamic Shape Optimizer — Bayesian Optimization
+# Technical Notes — Aerodynamic Bayesian Optimization
 
-## Data Generation Methodology
-The synthetic dataset is constructed using physics-informed equations that capture the dominant engineering relationships in Aerodynamic Design Optimization. While synthetic, the data distributions and feature interactions are calibrated to match published literature values.
+## Purpose
 
-## Model Selection Rationale
-**Gaussian Process + Expected Improvement Acquisition** was chosen for the following reasons:
-- Appropriate for the dataset size and feature structure
-- Validated performance on similar engineering regression/classification tasks in literature
-- Interpretable outputs compatible with engineering design workflows
+This repository demonstrates sequential optimization of a synthetic aerodynamic objective using a Gaussian Process surrogate and Expected Improvement.
 
-## Hyperparameter Tuning
-Where applicable, hyperparameters were tuned via cross-validated grid or random search. Final parameters are documented in the main script.
+## Workflow
 
-## Known Limitations
-1. Synthetic data does not capture all real-world noise and sensor artefacts
-2. Model is validated within the training design space (interpolation); extrapolation should be treated with caution
-3. For production deployment, re-training on real experimental data is required
+1. Generate an initial design sample.
+2. Fit a Gaussian Process surrogate.
+3. Evaluate Expected Improvement over candidate locations.
+4. Select the next design to evaluate.
+5. Update the surrogate and repeat.
 
-## References
-- Forrester, A.I.J., Sóbester, A., Keane, A.J. (2008). *Engineering Design via Surrogate Modelling: A Practical Guide*. Wiley.
-- Scikit-learn: Pedregosa et al. (2011). Journal of Machine Learning Research, 12, 2825-2830.
-- Domain-specific references are noted inline in the main script.
+## Objective Scope
+
+The drag objective is synthetic / physics-inspired. It is used to demonstrate the optimization mechanism without requiring CFD during each iteration.
+
+## Interpretation
+
+The reported objective reduction is valid only for the generated design landscape.
+
+The technical value of the project is the search strategy:
+- predictive mean;
+- predictive uncertainty;
+- acquisition function;
+- exploration/exploitation trade-off;
+- convergence under a limited evaluation budget.
+
+## Limitations
+
+A production aerodynamic optimizer would require:
+- CFD or experimental objective evaluations;
+- geometric feasibility constraints;
+- mesh and solver convergence controls;
+- multi-objective trade-offs;
+- validation of the final design with high-fidelity simulation.
