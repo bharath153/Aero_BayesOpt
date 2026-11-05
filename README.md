@@ -1,117 +1,70 @@
-# Vehicle Aerodynamic Shape Optimizer — Bayesian Optimization
+# Vehicle Aerodynamic Shape Optimization — Bayesian Optimization
 
-> **Minimizing drag coefficient via Expected Improvement over a GPR surrogate**
+> Gaussian-process surrogate modelling with Expected Improvement for aerodynamic design search
 
-[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![scikit-learn](https://img.shields.io/badge/scikit--learn-1.3-orange.svg)](https://scikit-learn.org/)
-[![Domain](https://img.shields.io/badge/Domain-Aerodynamic%20Design%20Optimization-green.svg)]()
-[![Model](https://img.shields.io/badge/Model-Gaussian%20Process%20+%20Expected%20Improvement%20Acquisition-purple.svg)]()
+## Overview
 
----
+This project demonstrates sequential engineering optimization when each objective evaluation is assumed to be expensive.
 
-## 🎯 Project Overview
+A Gaussian Process surrogate is fitted to a synthetic aerodynamic design landscape. Expected Improvement is then used to select new candidate designs and progressively search for lower drag coefficient.
 
-| Item | Detail |
-|------|--------|
-| **Domain** | Aerodynamic Design Optimization |
-| **ML Model** | Gaussian Process + Expected Improvement Acquisition |
-| **Key Metric** | Cd reduced from 0.30 → 0.153 in 60 evaluations |
-| **Tech Stack** | Python · scikit-learn · GaussianProcessRegressor · SciPy · Latin Hypercube Sampling · Matplotlib |
+## Method
 
----
+Core components:
+- Latin Hypercube / initial design sampling;
+- Gaussian Process regression;
+- uncertainty-aware surrogate prediction;
+- Expected Improvement acquisition;
+- sequential candidate selection;
+- convergence and design-space visualization.
 
-## 🧠 Problem Statement
+## Data Scope
 
-Minimizing drag coefficient via Expected Improvement over a GPR surrogate. In engineering design, expensive simulations (FEA, CFD, dyno tests) limit the number of configurations that can be evaluated. Machine learning surrogates and classifiers allow rapid exploration of large design spaces, enabling smarter, faster engineering decisions.
+The aerodynamic objective is **synthetic / physics-inspired**. The project demonstrates Bayesian-optimization mechanics and engineering interpretation; it is not a CFD-validated aerodynamic optimization study.
 
----
+## Reported Result
 
-## 📁 Repository Structure
+The saved experiment reports a reduction in the synthetic drag objective from approximately:
 
-```
-P10_Aero_BayesOpt/
-├── src/
-│   └── train_bayesopt.py          # Main training & evaluation script
-├── plots/
-│   ├── fig1_*.png              # Performance plots
-│   ├── fig2_*.png              # Analysis plots
-│   ├── fig3_*.png
-│   └── fig4_*.png
-├── docs/
-│   └── technical_notes.md      # Extended methodology notes
-├── metrics.json                 # Saved evaluation metrics
-├── requirements.txt
-├── .gitignore
-└── README.md
+```text
+Cd = 0.30 → 0.153
 ```
 
----
+within the configured evaluation budget.
 
-## 🚀 Quick Start
+That result applies only to the repository's generated objective landscape.
 
-### 1. Clone & install
+## Run
+
 ```bash
-git clone https://github.com/YOUR_USERNAME/P10_Aero_BayesOpt.git
-cd P10_Aero_BayesOpt
+git clone https://github.com/bharath153/Aero_BayesOpt.git
+cd Aero_BayesOpt
 pip install -r requirements.txt
-```
-
-### 2. Run the model
-```bash
 python src/train_bayesopt.py
 ```
 
-### 3. View results
-All plots are saved to `plots/`. Metrics are saved to `metrics.json`.
+## Repository Structure
 
----
+```text
+Aero_BayesOpt/
+├── src/
+│   └── train_bayesopt.py
+├── plots/
+├── docs/
+├── metrics.json
+├── requirements.txt
+└── README.md
+```
 
-## 📊 Results & Visualizations
+## Relationship to the GPR Surrogate Project
 
-### Model Performance
-**Cd reduced from 0.30 → 0.153 in 60 evaluations**
+[Aero_Drag_GPR](https://github.com/bharath153/Aero_Drag_GPR) focuses on surrogate prediction. This repository extends the same general idea to **sequential decision-making**, where predictive uncertainty is used to decide where to evaluate next.
 
-| Figure | Description |
-|--------|-------------|
-| `fig1_*` | Predicted vs Actual / Confusion Matrix |
-| `fig2_*` | Feature Importance / Anomaly Scores |
-| `fig3_*` | Learning Curve / ROC Curve |
-| `fig4_*` | Design Space / Parametric Study |
+## Possible Extensions
 
----
-
-## 🔬 Methodology
-
-### Data Generation
-Synthetic data is generated using physics-informed equations derived from engineering fundamentals. The data generation pipeline mimics real experimental/simulation data to demonstrate production-grade methodology.
-
-### Model Architecture
-`Gaussian Process + Expected Improvement Acquisition` — selected based on dataset characteristics (size, feature type, required uncertainty quantification).
-
-### Validation Strategy
-- 80/20 train-test split with fixed random seed
-- 5-fold cross-validation for robust metric estimation
-- Held-out test set never used during hyperparameter tuning
-
----
-
-## 📚 References & Further Reading
-
-- Forrester, A., Sóbester, A., & Keane, A. (2008). *Engineering Design via Surrogate Modelling*. Wiley.
-- Scikit-learn documentation: [https://scikit-learn.org](https://scikit-learn.org)
-- Relevant SAE/IEEE papers cited in `docs/technical_notes.md`
-
----
-
-## 👤 Author
-
-**Bharath Kanaiah Parthiban**  
-M.Sc. Automotive Engineering — Politecnico di Torino (2025)  
-Thesis: *Computational Intelligence for the Design of Electric Machines*  
-
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/YOUR_PROFILE)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/YOUR_USERNAME)
-
----
-
-
+- CFD-backed objective evaluations;
+- multiple aerodynamic objectives;
+- geometric constraints;
+- batch Bayesian optimization;
+- multi-fidelity surrogates;
+- comparison with evolutionary algorithms.
